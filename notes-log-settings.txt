@@ -1,0 +1,24 @@
+# spring boot logging dependency
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-logging</artifactId>
+</dependency>
+
+# logging
+logging.level.root=INFO
+logging.level.org.springframework.web=DEBUG
+logging.level.com.course=DEBUG
+
+# Logging pattern for the console
+logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%t] %c{1} - %msg%n
+
+# Logging pattern for file
+logging.pattern.file=%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%t] %c{1} - %msg%n
+logging.file=/Users/nand/Development/apache-tomcat-8.5.9/logs/application.log
+
+spring profile:
+setenv.sh
+export JAVA_OPTS="$JAVA_OPTS -Dspring.profiles.active=dev"
+
+setenv.bat
+set JAVA_OPTS="%JAVA_OPTS% -Dspring.profiles.active=dev"

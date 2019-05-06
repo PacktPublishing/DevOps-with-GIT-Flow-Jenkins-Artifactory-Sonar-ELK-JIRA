@@ -1,0 +1,60 @@
+input {
+  file {
+    type => "tomcat"
+    path => "/Users/dev/DevOps/apache-tomcat-8.5.16/logs/devops.log"
+    start_position => "beginning"
+    add_field => {
+      "server"  =>  "dev"
+      "app"     =>  "devops"
+    }
+  }
+  file {
+    type => "tomcat"
+    path => "/Users/dev/DevOpsQA/apache-tomcat-8.5.16/logs/devops.log"
+    start_position => "beginning"
+    add_field => {
+      "server"  =>  "qa"
+      "app"     =>  "devops"
+    }
+  }
+  file {
+    type => "tomcat"
+    path => "/Users/dev/DevOpsProd/apache-tomcat-8.5.16/logs/devops.log"
+    start_position => "beginning"
+    add_field => {
+      "server"  =>  "prod"
+      "app"     =>  "devops"
+    }
+  }
+  stdin { }
+}
+
+filter {
+  if [type] == "apache" {
+    grok {
+      match => { "message" => "%{COMBINEDAPACHELOG}" }
+    }
+    date {
+      match => [ "timestamp" , "dd/MMM/yyyy:HH:mm:ss Z" ]
+    }
+  }
+  if [type] == "tomcat" {
+    grok {
+      match => [ "message", "%{TOMCATLOG}", "message", "%{CATALINALOG}" ]
+    }
+    date {
+      match => [ "timestamp", "yyyy-MM-dd HH:mm:ss,SSS Z", "MMM dd, yyyy HH:mm:ss a" ]
+    }
+  }
+
+}
+
+output {
+  elasticsearch {
+    hosts => ["localhost:9200"]
+  }
+  stdout {
+    codec => rubydebug
+  }
+
+}

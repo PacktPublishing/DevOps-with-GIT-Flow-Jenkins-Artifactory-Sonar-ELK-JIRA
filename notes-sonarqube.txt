@@ -1,0 +1,51 @@
+SonarQube:
+http://maven.apache.org/components/surefire/maven-surefire-plugin/
+http://www.eclemma.org/jacoco/trunk/doc/maven.html
+https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Maven
+
+Maven Profile:
+<profiles>
+  <profile>
+      <id>sonar</id>
+      <activation>
+          <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+          <sonar.host.url>http://localhost:9000</sonar.host.url>
+          <sonar.login></sonar.login>
+      </properties>
+  </profile>
+</profiles>
+
+Properties for pom.xml:
+<surefire.version>2.17</surefire.version>
+<jacoco.version>0.7.9</jacoco.version>
+
+Plugin:
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-surefire-plugin</artifactId>
+  <version>${surefire.version}</version>
+</plugin>
+<plugin>
+    <groupId>org.jacoco</groupId>
+    <artifactId>jacoco-maven-plugin</artifactId>
+    <version>${jacoco.version}</version>
+    <executions>
+        <execution>
+            <id>default-prepare-agent</id>
+            <goals><goal>prepare-agent</goal></goals>
+        </execution>
+        <execution>
+            <id>default-report</id>
+            <phase>prepare-package</phase>
+            <goals><goal>report</goal></goals>
+        </execution>
+    </executions>
+</plugin>
+
+Maven Command:
+mvn sonar:sonar
+
+Plugins:
+SonarQube Scanner for Jenkins

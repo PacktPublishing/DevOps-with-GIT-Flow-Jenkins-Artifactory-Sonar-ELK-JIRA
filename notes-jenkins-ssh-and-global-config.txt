@@ -1,0 +1,6 @@
+Validate and Init SSH Known Hosts:
+ssh -T git@github.com
+
+Set the Git User Name and Email:
+git config --global user.name "Jenkins"
+git config --global user.email nandudemy@gmail.com

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+  <profiles>
+    <profile>
+      <id>default</id>
+      <repositories>
+        <repository>
+          <id>release</id>
+          <name>release</name>
+          <url>http://localhost:8081/artifactory/libs-release-local</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
+        <repository>
+          <id>snapshot</id>
+          <name>snapshot</name>
+          <url>http://localhost:8081/artifactory/libs-snapshot-local</url>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
+          </snapshots>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
+  <activeProfiles>
+    <activeProfile>default</activeProfile>
+  </activeProfiles>
+  <servers>
+    <server>
+      <id>release</id>
+      <username>admin</username>
+      <password>{*** Insert password here ***}</password>
+    </server>
+    <server>
+      <id>snapshot</id>
+      <username>admin</username>
+      <password>{*** Insert password here ***}</password>
+    </server>
+  </servers>
+</settings>

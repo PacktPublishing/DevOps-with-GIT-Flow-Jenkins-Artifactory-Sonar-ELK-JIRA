@@ -1,0 +1,19 @@
+TC Deploy:
+
+DEV:
+curl -u ${tcuser}:${tcpass} -T target/**.war "http://localhost:8080/manager/text/deploy?path=/devops&update=true"
+
+QA:
+curl -u ${tcuser}:${tcpass} -T target/**.war "http://localhost:9080/manager/text/deploy?path=/devops&update=true"
+
+PROD:
+echo "Deploying war from http://localhost:8081/artifactory/libs-release-local/com/example/devops/${tag:1}/devops-${tag:1}.war"
+
+curl -O http://localhost:8081/artifactory/libs-release-local/com/example/devops/${tag:1}/devops-${tag:1}.war
+
+curl -u ${tcuser}:${tcpass} -T *.war "http://localhost:7080/manager/text/deploy?path=/devops&update=true"
+
+
+Windows Users (please note):
+
+curl -u ${tcuser}:${tcpass} -F filedata=target/**.war "http://localhost:8080/manager/text/deploy?path=/devops&update=true"
